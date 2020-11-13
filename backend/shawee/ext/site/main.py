@@ -49,23 +49,3 @@ def transactions():
         result.append(trans.to_dict())
 
     return jsonify(result)
-
-
-@bp.route('/category', methods=['POST'])
-def category():
-    """
-        Retorna transações por categoria e data
-    """
-    id = int(request.form['id'])
-    category = int(request.form['category'])
-    datain = request.form['datain']
-    dataout = request.form['dataout']
-    
-    transaction = Transactions.query.filter(Transactions.date.between(datain, dataout)).filter_by(user_id=id,category_id=category).all()
-    
-    result = []
-
-    for trans in transaction:
-        result.append(trans.to_dict())
-
-    return jsonify(result)

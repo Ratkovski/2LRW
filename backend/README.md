@@ -51,8 +51,8 @@ linux
 windows
 ~~~
     sqlite3 shawee/database.db < scripts/User.sql
-    sqlite3 shawee/database.db < scripts/Category.sql
-    sqlite3 shawee/database.db < scripts/Transaction.sql
+	sqlite3 shawee/database.db < scripts/Category.sql
+	sqlite3 shawee/database.db < scripts/Transaction.sql
 ~~~
 
 7. Executar aplicação
