@@ -62,38 +62,38 @@ windows
 
 ### Estrutura
 ~~~
-    backend
-    |____wsgi.py
-    |____scripts
-    | |____User.sql
-    | |____scripts.sql
-    | |____Hachathon_-_Linker_2020-11-12_09_20.xml
-    | |____vertabelo_flask_sqlalchemy.py
-    | |____Transactions.sql
-    | |____Category.sql
-    |____LICENCE
-    |____Makefile
-    |____README.md
-    |____shawee
-    | |______init__.py
-    | |____ext
-    | | |____controller
-    | | | |______init__.py
-    | | | |____controller.py
-    | | |______init__.py
-    | | |____config.py
-    | | |____cli.py
-    | | |____site
-    | | | |______init__.py
-    | | | |____main.py
-    | | |____db
-    | |   |______init__.py
-    | |   |____models.py
-    | |   |____commands.py
-    | |____database.db
-    | |____app.py
-    |
-    |____requirements.txt
-    |____setup.py
-    |____settings.toml
+backend
+|____wsgi.py
+|____scripts
+| |____User.sql
+| |____scripts.sql
+| |____Hachathon_-_Linker_2020-11-12_09_20.xml
+| |____vertabelo_flask_sqlalchemy.py
+| |____Transactions.sql
+| |____Category.sql
+|____LICENCE
+|____Makefile
+|____README.md
+|____shawee
+| |______init__.py
+| |____ext
+| | |____controller
+| | | |______init__.py
+| | | |____controller.py
+| | |______init__.py
+| | |____config.py
+| | |____cli.py
+| | |____site
+| | | |______init__.py
+| | | |____main.py
+| | |____db
+| |   |______init__.py
+| |   |____models.py
+| |   |____commands.py
+| |____database.db
+| |____app.py
+|
+|____requirements.txt
+|____setup.py
+|____settings.toml
 ~~~ 
