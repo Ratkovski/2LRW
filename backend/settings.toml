@@ -1,0 +1,30 @@
+[default]
+DEBUG = false 
+EXTENSIONS = [
+  "shawee.ext.db:init_app",
+  "shawee.ext.controller:init_app",
+  "shawee.ext.cli:init_app",
+  "shawee.ext.site:init_app",
+] 
+FLASK_ADMIN_SWATCH = "cyborg" # choose another theme at https://bootswatch.com/
+UPLOAD_FOLDER = 'img'
+
+[development]
+DEBUG = false
+SQLALCHEMY_DATABASE_URI = "sqlite:///database.db"
+SQLALCHEMY_TRACK_MODIFICATIONS = false
+DEBUG_TB_TEMPLATE_EDITOR_ENABLED = true
+DEBUG_TB_PROFILER_ENABLED = true
+DEBUG_TB_INTERCEPT_REDIRECTS = false
+EXTENSIONS = [
+  "shawee.ext.db:init_app",
+  "shawee.ext.controller:init_app",
+  "shawee.ext.cli:init_app",
+  "shawee.ext.site:init_app",
+]
+
+
+[production]
+# SQLALCHEMY_DATABASE_URI = "mysql://root:password@localhost/shawee"
+SQLALCHEMY_DATABASE_URI = "sqlite:///shawee.db"
+SQLALCHEMY_TRACK_MODIFICATIONS = false

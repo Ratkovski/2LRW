@@ -1,0 +1,8 @@
+flask
+flask-sqlalchemy
+flask-migrate
+dynaconf
+flask-shell-ipython
+ipdb
+ipython
+flask-Cors
