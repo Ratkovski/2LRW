@@ -61,6 +61,7 @@ windows
 ~~~
 
 ### Estrutura
+~~~
 backend
 |____wsgi.py
 |____scripts
@@ -95,3 +96,4 @@ backend
 |____requirements.txt
 |____setup.py
 |____settings.toml
+~~~ 
