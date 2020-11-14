@@ -20,6 +20,12 @@ class Category(db.Model):
     id = db.Column('id', db.Integer, primary_key=True, nullable=False)
     name = db.Column('name', db.Unicode, nullable=False)
 
+    def to_dict(self):
+        return dict(
+            id=self.id,
+            name=self.name
+        )
+
 
 class Transactions(db.Model):
     __tablename__ = "Transactions"

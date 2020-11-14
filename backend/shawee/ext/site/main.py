@@ -80,3 +80,26 @@ def idex_users():
     for user in users:
         user_list.append(user.to_dict())
     return jsonify(user_list)
+
+
+@bp.route('/transactions-by-category', methods=['POST'])
+def transacitons_categorie():
+    #recebe id do usuário e lista com o id das categorias
+    data = request.get_json()
+    user_id = data.get('id')
+    category_ids = data.get('categories')
+
+    transactions_category = []
+
+    for category_id in category_ids:
+        transaction = Transactions.query.filter_by(user_id=user_id, category_id=category_id).all()
+        result = []
+        for trans in transaction:
+            result.append(trans.to_dict())
+        category = Category.query.filter_by(id=category_id).first()
+
+        transactions_category.append(dict(
+            category=category.to_dict(),
+            transactions=result
+        ))
+    return jsonify(transactions_category)
