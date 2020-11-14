@@ -3,65 +3,79 @@
 ### Inicização do ambiente
 
 1. Criar virtualenv e ativar
-~~~
+
+```
     virtualenv venv
     source venv/bin/activate
-~~~
+```
 
 2. Instalar requirements
-linux
-~~~
+   linux
+
+```
     make install
-~~~
+```
+
 windows
-~~~
+
+```
     pip install -r requirements.txt
-~~~
+```
 
 3. Criar SECRET-KEY
-criar arquivo .secrets.toml na raiz do projeto mesmo local do setup.py e preencher com
-~~~
+   criar arquivo .secrets.toml na raiz do projeto mesmo local do setup.py e preencher com
+
+```
     [default]
     SECRET_KEY = "shaweeprotected"
-~~~
+```
 
 4. Setar ambiente
-linux
-~~~
+   linux
+
+```
     export FLASK_APP=shawee/app.py
     export FLASK_ENV=development
-~~~
+```
+
 windows
-~~~
+
+```
     set FLASK_APP=shawee/app.py
     set FLASK_ENV=development
-~~~
+```
 
 5. Inicializar banco
-~~~
+
+```
     flask db init
     make init-db
-~~~
+```
 
 6. Popular banco
-linux
-~~~
+   linux
+
+```
     make populate
-~~~
+```
+
 windows
-~~~
+
+```
     sqlite3 shawee/database.db < scripts/User.sql
 	sqlite3 shawee/database.db < scripts/Category.sql
 	sqlite3 shawee/database.db < scripts/Transaction.sql
-~~~
+```
 
 7. Executar aplicação
-~~~
+
+```
     make run
-~~~
+```
 
 ### Estrutura
-~~~
+
+```
 backend
 |____wsgi.py
 |____scripts
@@ -96,4 +110,6 @@ backend
 |____requirements.txt
 |____setup.py
 |____settings.toml
-~~~ 
+```
+
+Lucas esteve aqui
