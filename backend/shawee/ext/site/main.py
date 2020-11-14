@@ -70,3 +70,13 @@ def category():
         result.append(trans.to_dict())
 
     return jsonify(result)
+
+@bp.route('/users', methods=['GET'])
+def idex_users():
+    users = User.query.all()
+    print(users)
+    # return jsonify(transaction)
+    user_list = []
+    for user in users:
+        user_list.append(user.to_dict())
+    return jsonify(user_list)

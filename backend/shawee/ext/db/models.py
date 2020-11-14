@@ -7,6 +7,13 @@ class User(db.Model):
     name = db.Column('name', db.Unicode, nullable=False)
     balance = db.Column('balance', db.Numeric, nullable=False)
 
+    def to_dict(self):
+        return dict(
+            id=self.id, 
+            name=self.name,
+            balance=float(self.balance)
+        )
+
 
 class Category(db.Model):
     __tablename__ = "Category"
