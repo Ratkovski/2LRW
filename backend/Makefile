@@ -16,6 +16,6 @@ set:
 	export FLASK_ENV=development
 
 populate:
-	sqlite3 shawee/database.db < scripts/User.sql
-	sqlite3 shawee/database.db < scripts/Category.sql
-	sqlite3 shawee/database.db < scripts/Transactions.sql
+	sqlite3 shawee/database.db < arquivos/User.sql
+	sqlite3 shawee/database.db < arquivos/Category.sql
+	sqlite3 shawee/database.db < arquivos/Transactions.sql
