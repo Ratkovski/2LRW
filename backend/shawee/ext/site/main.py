@@ -140,8 +140,11 @@ def total_value():
             }
         )
 
-    return jsonify(result)@bp.route('/total_value_month', methods=['POST'])
-def total_value():
+    return jsonify(result)
+    
+    
+@bp.route('/total_value_month', methods=['POST'])
+def total_value_month():
 
     data = request.get_json()
     user_id = data.get('id')
