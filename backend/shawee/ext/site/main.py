@@ -136,3 +136,21 @@ def total_value():
         )
 
     return jsonify(result)
+
+
+@bp.route('/categories', methods=['GET'])
+def categories():
+    """
+        Retorna categoria e id
+    """
+     
+    categories = Category.query.all()
+    
+    import ipdb; ipdb.set_trace()
+    result = []
+
+    for category in categories:
+        result.append(category.to_dict())
+    import ipdb; ipdb.set_trace()
+
+    return jsonify(result)

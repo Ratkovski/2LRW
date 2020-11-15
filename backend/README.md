@@ -2,15 +2,33 @@
 
 ### Inicização do ambiente
 
-1. Criar virtualenv e ativar
+**1. Criar virtualenv e ativar**
+
+linux
 
 ```
+    pip install virtualenv
     virtualenv venv
     source venv/bin/activate
 ```
+windows
 
-2. Instalar requirements
-   linux
+```
+    pip install virtualenv
+    virtualenv venv
+    venv/Scripts/activate
+```
+caso não de certo o **activate**, vá até a pasta Scripts
+```
+    cd venv
+    cd Scripts
+    activate
+```
+e depois retorne para pasta raiz com 2 '**cd ..**'
+
+**2. Instalar requirements**
+  
+linux
 
 ```
     make install
@@ -22,16 +40,18 @@ windows
     pip install -r requirements.txt
 ```
 
-3. Criar SECRET-KEY
-   criar arquivo .secrets.toml na raiz do projeto mesmo local do setup.py e preencher com
+**3. Criar SECRET-KEY**
+
+Crie arquivo **.secrets.toml** na raiz do projeto mesmo local do setup.py e preencha com
 
 ```
     [default]
     SECRET_KEY = "shaweeprotected"
 ```
 
-4. Setar ambiente
-   linux
+**4. Setar ambiente**
+   
+linux
 
 ```
     export FLASK_APP=shawee/app.py
@@ -45,15 +65,26 @@ windows
     set FLASK_ENV=development
 ```
 
-5. Inicializar banco
+**5. Inicializar banco**
+
+linux
 
 ```
     flask db init
     make init-db
 ```
 
-6. Popular banco
-   linux
+windows
+
+```
+    flask db init
+    flask create-db
+    flask db upgrade
+```
+
+**6. Popular banco**
+
+linux
 
 ```
     make populate
@@ -63,14 +94,22 @@ windows
 
 ```
     sqlite3 shawee/database.db < scripts/User.sql
-	sqlite3 shawee/database.db < scripts/Category.sql
-	sqlite3 shawee/database.db < scripts/Transaction.sql
+    sqlite3 shawee/database.db < scripts/Category.sql
+    sqlite3 shawee/database.db < scripts/Transaction.sql
 ```
 
-7. Executar aplicação
+**7. Executar aplicação**
+
+linux
 
 ```
-    make run
+    make run ou flask run
+```
+
+windows
+
+```
+    flask run
 ```
 
 ### Estrutura
@@ -111,5 +150,3 @@ backend
 |____setup.py
 |____settings.toml
 ```
-
-Lucas esteve aqui
