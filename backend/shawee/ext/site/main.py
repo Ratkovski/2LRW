@@ -1,38 +1,25 @@
 from flask import Blueprint, jsonify, request
-# from shawee.ext.db.controller import create_reserva, verifica_pagamento
 from shawee.ext.db.models import User, Category, Transactions
 from shawee.ext.db import db
-
+import sqlite3
+import os.path
 
 from datetime import datetime, date, time
-import pendulum
-
 
 bp = Blueprint("site", __name__)
 
 
-@bp.route('/', methods=['GET', 'POST'])
-def index():
-    return 'Deu certo aqui'
-
-
 @bp.route('/user', methods=['POST'])
 def user():
-    id = int(request.form['id'])
-    user = User.query.filter_by(id=id).first()
+    """
+        Recebe id e retorna as espeficações do usuario 
+    """
+    data = request.get_json()
+    user_id = data.get('id')
+    user = User.query.filter_by(id=user_id).first()
 
-    result = {
-        'id': id,
-        'name': user.name
-    }
-    return jsonify(result)
+    return jsonify(user.to_dict())
 
-
-""" 
-data inicial e final
-caixa atual
-total de movimentações
-"""
 
 
 @bp.route('/transactions', methods=['POST'])
@@ -40,8 +27,9 @@ def transactions():
     """ 
         Returna todas as transações de um usuario
     """
-    id = int(request.form['id'])
-    transaction = Transactions.query.filter_by(user_id=id).all()
+    data = request.get_json()
+    user_id = data.get('id')
+    transaction = Transactions.query.filter_by(user_id=user_id).all()
 
     result = []
 
@@ -55,14 +43,15 @@ def transactions():
 @bp.route('/category', methods=['POST'])
 def category():
     """
-        Retorna transações por categoria e data
+        Retorna transações por categoria e um intervalo de tempo
     """
-    id = int(request.form['id'])
-    category = int(request.form['category'])
-    datain = request.form['datain']
-    dataout = request.form['dataout']
+    data = request.get_json()
+    user_id = data.get('id')
+    category = data.get('category')
+    datein = data.get('datein')
+    dateout = data.get('dateout')
     
-    transaction = Transactions.query.filter(Transactions.date.between(datain, dataout)).filter_by(user_id=id,category_id=category).all()
+    transaction = Transactions.query.filter(Transactions.date.between(datein, dateout)).filter_by(user_id=user_id,category_id=category).all()
     
     result = []
 
@@ -70,6 +59,8 @@ def category():
         result.append(trans.to_dict())
 
     return jsonify(result)
+
+
 
 @bp.route('/users', methods=['GET'])
 def idex_users():
@@ -80,6 +71,7 @@ def idex_users():
     for user in users:
         user_list.append(user.to_dict())
     return jsonify(user_list)
+
 
 
 @bp.route('/transactions-by-category', methods=['POST'])
@@ -103,3 +95,44 @@ def transacitons_categorie():
             transactions=result
         ))
     return jsonify(transactions_category)
+
+
+
+@bp.route('/total_value_month', methods=['POST'])
+def total_value():
+    """
+        Recebe id, data inicio e data final e retorna total de por mês e ano 
+    """
+    data = request.get_json()
+    user_id = data.get('id')
+    datein = data.get('datein')
+    dateout = data.get('dateout')
+    
+    BASE = os.path.abspath('')
+    DB = os.path.join(BASE, 'shawee', 'database.db')
+    conn = sqlite3.connect(DB)
+    cursor = conn.cursor()
+
+    transactions = cursor.execute(f""" 
+        SELECT  round(sum(value), 2) as total,
+                strftime('%m-%Y', date) as month,
+                status
+        FROM Transactions
+        WHERE date BETWEEN '{datein}' and '{dateout}'
+        AND User_id = {user_id}
+        GROUP BY 2, 3, status;  
+    """).fetchall()
+
+    conn.close()
+
+    result = []
+    for aux in transactions:
+        result.append(
+            {
+               'value': aux[0],
+               'date': aux[1],
+               'status': aux[2] 
+            }
+        )
+
+    return jsonify(result)
