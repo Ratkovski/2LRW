@@ -152,3 +152,45 @@ def categories():
         result.append(category.to_dict())
 
     return jsonify(result)
+
+@bp.route('/category_value_month', methods=['POST'])
+def category_value_month():
+    """
+        Recebe id, data inicio e data final e retorna total de por mês e ano 
+    """
+    data = request.get_json()
+    user_id = data.get('id')
+    datein = data.get('datein')
+    dateout = data.get('dateout')
+    
+    BASE = os.path.abspath('')
+    DB = os.path.join(BASE, 'shawee', 'database.db')
+    conn = sqlite3.connect(DB)
+    cursor = conn.cursor()
+
+    transactions = cursor.execute(f""" 
+        SELECT  round(sum(value), 2) as total,
+                strftime('%m-%Y', date) as month,
+                status,
+                Transactions.Category_id
+        FROM Transactions inner join Category
+                  on Transactions.Category_id = Category.id
+        WHERE date BETWEEN '{datein}' and '{dateout}'
+        AND User_id = {user_id}
+        GROUP BY 2, 3, status, category_id;  
+    """).fetchall()
+
+    conn.close()
+
+    result = []
+    for aux in transactions:
+        result.append(
+            {
+               'value': aux[0],
+               'date': aux[1],
+               'status': aux[2],
+               'category': aux[3] 
+            }
+        )
+
+    return jsonify(result)
