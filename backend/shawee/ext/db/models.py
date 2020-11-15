@@ -33,8 +33,8 @@ class Transactions(db.Model):
     value = db.Column('value', db.Numeric, nullable=False)
     date = db.Column('date', db.DateTime, nullable=False)
     
-    # 0 - Somar no saldo total do cliente
-    # 1 - Subtrait do salto total do cliente
+    # 1 - Somar no saldo total do cliente
+    # 2 - Subtrait do salto total do cliente
     status = db.Column('status', db.Integer, nullable=False)
     
     user_id = db.Column('User_id', db.Integer, db.ForeignKey('User.id'), nullable=False)

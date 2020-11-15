@@ -1,12 +1,10 @@
 from flask import Blueprint, jsonify, request
-# from shawee.ext.db.controller import create_reserva, verifica_pagamento
 from shawee.ext.db.models import User, Category, Transactions
 from shawee.ext.db import db
-
+import sqlite3
+import os.path
 
 from datetime import datetime, date, time
-import pendulum
-
 
 bp = Blueprint("site", __name__)
 
@@ -57,12 +55,14 @@ def category():
     """
         Retorna transações por categoria e data
     """
-    id = int(request.form['id'])
-    category = int(request.form['category'])
-    datain = request.form['datain']
-    dataout = request.form['dataout']
+    data = request.get_json()
+    import ipdb; ipdb.set_trace()
+    user_id = data.get('id')
+    category = data.get('category')
+    datein = data.get('datein')
+    dateout = data.get('dateout')
     
-    transaction = Transactions.query.filter(Transactions.date.between(datain, dataout)).filter_by(user_id=id,category_id=category).all()
+    transaction = Transactions.query.filter(Transactions.date.between(datein, dateout)).filter_by(user_id=user_id,category_id=category).all()
     
     result = []
 
@@ -103,3 +103,41 @@ def transacitons_categorie():
             transactions=result
         ))
     return jsonify(transactions_category)
+
+
+@bp.route('/total_value_month', methods=['POST'])
+def total_value():
+
+    data = request.get_json()
+    user_id = data.get('id')
+    datein = data.get('datein')
+    dateout = data.get('dateout')
+    
+    BASE = os.path.abspath('')
+    DB = os.path.join(BASE, 'shawee', 'database.db')
+    conn = sqlite3.connect(DB)
+    cursor = conn.cursor()
+
+    transactions = cursor.execute(f""" 
+        SELECT  round(sum(value), 2) as total,
+                strftime('%m-%Y', date) as month,
+                status
+        FROM Transactions
+        WHERE date BETWEEN '{datein}' and '{dateout}'
+        AND User_id = {user_id}
+        GROUP BY 2, 3, status;  
+    """).fetchall()
+
+    conn.close()
+
+    result = []
+    for aux in transactions:
+        result.append(
+            {
+               'value': aux[0],
+               'date': aux[1],
+               'status': aux[2] 
+            }
+        )
+
+    return jsonify(result)
