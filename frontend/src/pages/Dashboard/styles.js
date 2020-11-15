@@ -15,5 +15,5 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   background: #fff;
-  margin-left: 250px;
+  margin-left: 20%;
 `;

@@ -1,4 +1,5 @@
 import React, {useRef, useCallback, useState} from 'react';
+import { useSelector } from 'react-redux';
 import { Bar } from 'react-chartjs-2';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
@@ -16,6 +17,7 @@ export default function Dashboard() {
   const [labels, setLabels] = useState([]);
   const [expenses, setExpenses] = useState([]);
   const [profits, setProfits] = useState([]);
+  const nav = useSelector(state => state.navDashboard.dashboard);
 
   const handleSubmit = useCallback(async (data) => {
     try {
@@ -124,13 +126,17 @@ export default function Dashboard() {
     <>
       <Nav/>
       <Container>
-        <Form ref={formRef} onSubmit={handleSubmit}>
-          <Button type="submit">Buscar</Button>
-          <Input type="date" name="finalDate" placeholder="Data final"/>
-          <Input type="date" name="initialDate" placeholder="Data inicial"/>
-        </Form>
         <Content>
-        <Bar type={"bar"} data={data} options={title}/>
+          {nav === 1 &&
+            <>
+              <Form ref={formRef} onSubmit={handleSubmit}>
+                <Button type="submit">Buscar</Button>
+                <Input type="date" name="finalDate" placeholder="Data final"/>
+                <Input type="date" name="initialDate" placeholder="Data inicial"/>
+              </Form>
+              <Bar type={"bar"} data={data} options={title}/>
+            </>
+          }
         </Content>
       </Container>
     </>

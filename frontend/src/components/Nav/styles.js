@@ -2,13 +2,15 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   background: #fff;
-  width: 250px;
+  width: 18%;
+  min-width: 200px;
   margin-top: -60px;
   height: 100%;
   position: absolute;
 
   ul {
-    width: 250px;
+    width: 100%;
+    min-width: 200px;
   }
 
   ul li {
@@ -46,7 +48,7 @@ export const Container = styled.div`
     position: absolute;
     border: none;
     top: 0;
-    left: 250px;
+    left: 100%;
     background-color: #fff;
     display: none;
   }

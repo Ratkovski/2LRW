@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 15%;
   float: right;
-  margin-right: 30px;
+  margin-right:6%;
   margin-top: 12px;
 
   span {

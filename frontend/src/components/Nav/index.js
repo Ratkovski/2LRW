@@ -1,7 +1,17 @@
-import React from 'react';
+import React, {useCallback} from 'react';
+import { useDispatch } from 'react-redux';
+
+import { selectMenuRequest } from '~/store/modules/NavDashboard/actions';
+
 import { Container } from './styles';
 
 const Nav = () => {
+  const dispatch = useDispatch();
+
+  const handleDispatch = useCallback((button) => {
+    console.log(button);
+    dispatch(selectMenuRequest(button));
+  },[]);
 
   return (
     <Container>
@@ -12,7 +22,7 @@ const Nav = () => {
             </button>
             <ul>
               <li>
-                <button>Lucros e despesas</button>
+                <button onClick={() => handleDispatch(1)}>Lucros e despesas</button>
               </li>
               <li />
             </ul>

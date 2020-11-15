@@ -23,9 +23,9 @@ export default function RouteWrapper({
 
   return (
     <Route
-      {...rest}
-      render={props => (
-        <>
+    {...rest}
+    render={props => (
+      <>
           {/* {signed && <Header />} */}
           <Header/>
           <Component {...props} />

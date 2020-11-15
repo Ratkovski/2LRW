@@ -1,3 +1,5 @@
 import { combineReducers } from 'redux';
 
-export default combineReducers({ });
+import navDashboard from './NavDashboard/reducer';
+
+export default combineReducers({ navDashboard });
