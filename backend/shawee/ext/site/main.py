@@ -146,11 +146,9 @@ def categories():
      
     categories = Category.query.all()
     
-    import ipdb; ipdb.set_trace()
     result = []
 
     for category in categories:
         result.append(category.to_dict())
-    import ipdb; ipdb.set_trace()
 
     return jsonify(result)
