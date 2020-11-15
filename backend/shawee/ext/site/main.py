@@ -140,4 +140,39 @@ def total_value():
             }
         )
 
+    return jsonify(result)@bp.route('/total_value_month', methods=['POST'])
+def total_value():
+
+    data = request.get_json()
+    user_id = data.get('id')
+    datein = data.get('datein')
+    dateout = data.get('dateout')
+    
+    BASE = os.path.abspath('')
+    DB = os.path.join(BASE, 'shawee', 'database.db')
+    conn = sqlite3.connect(DB)
+    cursor = conn.cursor()
+
+    transactions = cursor.execute(f""" 
+        SELECT  round(sum(value), 2) as total,
+                strftime('%m-%Y', date) as month,
+                status
+        FROM Transactions
+        WHERE date BETWEEN '{datein}' and '{dateout}'
+        AND User_id = {user_id}
+        GROUP BY 2, 3, status;  
+    """).fetchall()
+
+    conn.close()
+
+    result = []
+    for aux in transactions:
+        result.append(
+            {
+               'value': aux[0],
+               'date': aux[1],
+               'status': aux[2] 
+            }
+        )
+
     return jsonify(result)
