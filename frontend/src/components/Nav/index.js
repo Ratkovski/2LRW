@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from './styles';
 
-export default function Nav() {
+const Nav = () => {
 
   return (
     <Container>
@@ -21,3 +21,5 @@ export default function Nav() {
     </Container>
   );
 }
+
+export default Nav;

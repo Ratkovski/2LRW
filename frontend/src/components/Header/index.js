@@ -4,7 +4,7 @@ import { Container, Content } from './styles';
 
 import logo from '~/Assets/logo.svg';
 
-export default function Header() {
+const Header = () => {
 
   return (
     <Container>
@@ -18,3 +18,5 @@ export default function Header() {
     </Container>
   );
 }
+
+export default Header;
