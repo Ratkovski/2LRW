@@ -21,7 +21,6 @@ def user():
     return jsonify(user.to_dict())
 
 
-
 @bp.route('/transactions', methods=['POST'])
 def transactions():
     """ 
@@ -39,7 +38,6 @@ def transactions():
     return jsonify(result)
 
 
-
 @bp.route('/category', methods=['POST'])
 def category():
     """
@@ -50,16 +48,16 @@ def category():
     category = data.get('category')
     datein = data.get('datein')
     dateout = data.get('dateout')
-    
-    transaction = Transactions.query.filter(Transactions.date.between(datein, dateout)).filter_by(user_id=user_id,category_id=category).all()
-    
+
+    transaction = Transactions.query.filter(Transactions.date.between(
+        datein, dateout)).filter_by(user_id=user_id, category_id=category).all()
+
     result = []
 
     for trans in transaction:
         result.append(trans.to_dict())
 
     return jsonify(result)
-
 
 
 @bp.route('/users', methods=['GET'])
@@ -73,10 +71,9 @@ def idex_users():
     return jsonify(user_list)
 
 
-
 @bp.route('/transactions-by-category', methods=['POST'])
 def transacitons_categorie():
-    #recebe id do usuário e lista com o id das categorias
+    # recebe id do usuário e lista com o id das categorias
     data = request.get_json()
     user_id = data.get('id')
     category_ids = data.get('categories')
@@ -84,7 +81,8 @@ def transacitons_categorie():
     transactions_category = []
 
     for category_id in category_ids:
-        transaction = Transactions.query.filter_by(user_id=user_id, category_id=category_id).all()
+        transaction = Transactions.query.filter_by(
+            user_id=user_id, category_id=category_id).all()
         result = []
         for trans in transaction:
             result.append(trans.to_dict())
@@ -97,7 +95,6 @@ def transacitons_categorie():
     return jsonify(transactions_category)
 
 
-
 @bp.route('/total_value_month', methods=['POST'])
 def total_value():
     """
@@ -105,9 +102,10 @@ def total_value():
     """
     data = request.get_json()
     user_id = data.get('id')
-    datein = data.get('datein')
-    dateout = data.get('dateout')
-    
+    str_in = data.get('datein')
+    str_out = data.get('dateout')
+    datein = datetime.strptime(str_in, '%d/%m/%Y').date()
+    dateout = datetime.strptime(str_out, '%d/%m/%Y').date()
     BASE = os.path.abspath('')
     DB = os.path.join(BASE, 'shawee', 'database.db')
     conn = sqlite3.connect(DB)
@@ -129,9 +127,9 @@ def total_value():
     for aux in transactions:
         result.append(
             {
-               'value': aux[0],
-               'date': aux[1],
-               'status': aux[2] 
+                'value': aux[0],
+                'date': aux[1],
+                'status': aux[2]
             }
         )
 
@@ -143,15 +141,16 @@ def categories():
     """
         Retorna categoria e id
     """
-     
+
     categories = Category.query.all()
-    
+
     result = []
 
     for category in categories:
         result.append(category.to_dict())
 
     return jsonify(result)
+
 
 @bp.route('/category_value_month', methods=['POST'])
 def category_value_month():
@@ -162,7 +161,7 @@ def category_value_month():
     user_id = data.get('id')
     datein = data.get('datein')
     dateout = data.get('dateout')
-    
+
     BASE = os.path.abspath('')
     DB = os.path.join(BASE, 'shawee', 'database.db')
     conn = sqlite3.connect(DB)
@@ -186,10 +185,10 @@ def category_value_month():
     for aux in transactions:
         result.append(
             {
-               'value': aux[0],
-               'date': aux[1],
-               'status': aux[2],
-               'category': aux[3] 
+                'value': aux[0],
+                'date': aux[1],
+                'status': aux[2],
+                'category': aux[3]
             }
         )
 

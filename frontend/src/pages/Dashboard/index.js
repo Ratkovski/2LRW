@@ -11,6 +11,7 @@ import { Container, Content } from './styles';
 import Nav from '~/components/Nav';
 import Input from '~/components/Input';
 import Button from '~/components/Button';
+import Axios from 'axios';
 
 export default function Dashboard() {
   const formRef = useRef(null);
@@ -21,12 +22,20 @@ export default function Dashboard() {
 
   const handleSubmit = useCallback(async (data) => {
     try {
+      console.log('submit-------------------')
       formRef.current.setErrors({});
       const schema = Yup.object().shape({
         initialDate: Yup.date()
-          .required('Data inicial obrigatória'),
+        .required('Data inicial obrigatória'),
         finalDate: Yup.date().required('Data final obrigatória'),
       });
+      // datein = `${schema.initialDate.getDate()}/${}/${}`
+      const response = await Axios.post('http://localhost:5000/total_value_month', {
+        id: 2,
+        datein: schema.initialDate,
+        dateout: schema.finalDate
+      })
+      console.log(response.data);
 
       // await schema.validate(data, {
       //   abortEarly: false,
