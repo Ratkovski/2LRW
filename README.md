@@ -2,7 +2,7 @@
 Time-13  Mega Hack 5° Edição - Desafio Linker 
 # Desafio - Linker
 
-### Inicio Backend
+### Backend
 
 ### Inicização do ambiente
 
@@ -102,9 +102,8 @@ backend
 |____settings.toml
 ~~~ 
 
-### Fim Backend
 
-### Inicio Fronend
+### Frontend
 
 # Instalando dependências
 
