@@ -5,8 +5,11 @@ import sqlite3
 import os.path
 
 from datetime import datetime, date, time
+from flask_cors import CORS
+
 
 bp = Blueprint("site", __name__)
+CORS(bp)
 
 
 @bp.route('/user', methods=['POST'])
