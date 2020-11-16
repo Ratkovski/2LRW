@@ -2,6 +2,8 @@
 Time-13  Mega Hack 5° Edição - Desafio Linker 
 # Desafio - Linker
 
+### Inicio Backend
+
 ### Inicização do ambiente
 
 1. Criar virtualenv e ativar
@@ -99,3 +101,28 @@ backend
 |____setup.py
 |____settings.toml
 ~~~ 
+
+### Fim Backend
+
+### Inicio Fronend
+
+# Instalando dependências
+
+```
+  npm install
+```
+caso tenha yarn instalado pode rodar o seguinte comando:
+```
+  yarn
+```
+
+# Rodando projeto
+```
+  npm run start
+```
+com yarn:
+```
+  yarn start
+```
+
+### Fim frontend
